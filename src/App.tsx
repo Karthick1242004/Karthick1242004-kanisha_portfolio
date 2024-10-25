@@ -1,83 +1,81 @@
+import React, { useState, useEffect, useRef } from 'react';
 import { Box, Mountain, Palette, Mail, Code, Database } from 'lucide-react';
 import Header from './components/Header';
 import ServiceCard from './components/ServiceCard';
 import SocialLinks from './components/SocialLinks';
-import TestimonialCard from './components/TestimonialCard';
 import Footer from './components/Footer';
-import logo from './assets/IMG_2543.jpg'
+import logo from './assets/IMG_2543.jpg';
+import Loader from './components/Loader'
+import TestimonialCard from './components/TestimonialCard';
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const testimonialsRef = useRef<HTMLDivElement>(null); // Reference for testimonials section
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white">
-      <Header />
-      
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Hero Section */}
-          <div className="lg:col-span-2 bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-3xl p-8 flex flex-col justify-between">
-            <div>
-              <img
-                src={logo}
-                alt="Profile"
-                className="w-20 h-20 rounded-full mb-6"
-              />
-              <h1 className="text-4xl font-bold mb-4">
-                My name is Kanisha, I'm a fullstack developer and programmer
-              </h1>
-              <p className="text-neutral-400 mb-8">
-                I specialize in creating web applications and to solve complex problem which required a huge bit of coding touch to  it.
-              </p>
-              <SocialLinks />
-            </div>
-          </div>
-
-          <div className="bg-neutral-900 rounded-3xl overflow-hidden">
-            <img
-              src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              alt="Featured work"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Service Cards */}
-          <ServiceCard
-            Icon={Box}
-            title="Fullstack Developer"
-            description="Creating web applications based on the provided inputs to fullstack output."
-          />
-
-          <ServiceCard
-            Icon={Code}
-            title="Programmer"
-            description="Crafting unique solutions to complex and interesting problems with a touch of code."
-          />
-
-          <ServiceCard
-            Icon={Database}
-            title="Data Enthusiast"
-            description="Transforming raw data into meaningful insights by data to support data-driven decision making."
-          />
-
-          {/* Contact Card */}
-          {/* <div className="bg-neutral-900 rounded-3xl p-8">
-            <div className="flex flex-col h-full justify-between">
-              <div>
-                <Mail className="w-8 h-8 text-purple-400 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Have a project in mind?</h3>
-                <p className="text-neutral-400 mb-6">Let's discuss your project</p>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Header testimonialsRef={testimonialsRef} />
+          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Hero Section */}
+              <div className="lg:col-span-2 bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-3xl p-8 flex flex-col justify-between">
+                <div>
+                  <img
+                    src={logo}
+                    alt="Profile"
+                    className="w-20 h-20 rounded-full mb-6"
+                  />
+                  <h1 className="text-4xl font-bold mb-4">
+                    My name is Kanisha, I'm a fullstack developer and programmer
+                  </h1>
+                  <p className="text-neutral-400 mb-8">
+                    I specialize in creating web applications and solving complex problems that require a strong coding touch.
+                  </p>
+                  <SocialLinks />
+                </div>
               </div>
-              <a
-                href="mailto:email@gmail.com"
-                className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full text-center transition"
-              >
-                email@gmail.com
-              </a>
-            </div>
-          </div> */}
-        </div>
 
-        {/* Testimonials Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+              <div className="bg-neutral-900 rounded-3xl overflow-hidden">
+                <img
+                  src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                  alt="Featured work"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Service Cards */}
+              <ServiceCard
+                Icon={Box}
+                title="Fullstack Developer"
+                description="Creating web applications based on the provided inputs to fullstack output."
+              />
+
+              <ServiceCard
+                Icon={Code}
+                title="Programmer"
+                description="Crafting unique solutions to complex and interesting problems with a touch of code."
+              />
+
+              <ServiceCard
+                Icon={Database}
+                title="Data Enthusiast"
+                description="Transforming raw data into meaningful insights by data to support data-driven decision making."
+              />
+            </div>
+
+            {/* Testimonials Section */}
+            <div ref={testimonialsRef} className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
           <TestimonialCard
             quote="We developed a REACT website that utilizes GEMINI AI to provide details about the latest disease outbreaks worldwide. Since GEMINI AI doesn't provide real-time data, we integrated updated news from the W.H.O. website to fetch disease details.."
             author={{
@@ -106,9 +104,11 @@ function App() {
             image="https://karthickrajans.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Finfotube.a0ea3e53.png&w=2048&q=75"
           />
         </div>
-      </main>
 
-      <Footer />
+          </main>
+          <Footer />
+        </>
+      )}
     </div>
   );
 }

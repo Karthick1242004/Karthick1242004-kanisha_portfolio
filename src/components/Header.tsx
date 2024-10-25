@@ -1,8 +1,16 @@
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
 
-export default function Header() {
+interface HeaderProps {
+  testimonialsRef: React.RefObject<HTMLDivElement>;
+}
+
+export default function Header({ testimonialsRef }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const scrollToTestimonials = () => {
+    testimonialsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm">
@@ -20,9 +28,9 @@ export default function Header() {
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex space-x-8">
-            <a href="#" className="text-white hover:text-purple-400 transition">Home</a>
-            <a href="#" className="text-white hover:text-purple-400 transition">Works</a>
-            <a href="#" className="text-white hover:text-purple-400 transition">Contact</a>
+            <a href="#" className="text-white hover:text-purple-400 transition" onClick={() => scrollToTestimonials()}>Home</a>
+            <a href="#" className="text-white hover:text-purple-400 transition" onClick={scrollToTestimonials}>Works</a>
+            <a href="#" className="text-white hover:text-purple-400 transition" onClick={scrollToTestimonials}>Contact</a>
           </nav>
         </div>
 
@@ -30,9 +38,9 @@ export default function Header() {
         {isMenuOpen && (
           <nav className="md:hidden py-4">
             <div className="flex flex-col space-y-4">
-              <a href="#" className="text-white hover:text-purple-400 transition">Home</a>
-              <a href="#" className="text-white hover:text-purple-400 transition">Works</a>
-              <a href="#" className="text-white hover:text-purple-400 transition">Contact</a>
+              <a href="#" className="text-white hover:text-purple-400 transition" onClick={() => setIsMenuOpen(false)}>Home</a>
+              <a href="#" className="text-white hover:text-purple-400 transition" onClick={() => { scrollToTestimonials(); setIsMenuOpen(false); }}>Works</a>
+              <a href="#" className="text-white hover:text-purple-400 transition"  onClick={() => { scrollToTestimonials(); setIsMenuOpen(false); }}>Contact</a>
             </div>
           </nav>
         )}
