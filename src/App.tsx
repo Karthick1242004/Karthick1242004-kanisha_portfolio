@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Box, Mountain, Palette, Mail, Code, Database } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Box, Code, Database } from 'lucide-react';
 import Header from './components/Header';
 import ServiceCard from './components/ServiceCard';
 import SocialLinks from './components/SocialLinks';
 import Footer from './components/Footer';
-import logo from './assets/IMG_2543.jpg';
 import Loader from './components/Loader'
 import TestimonialCard from './components/TestimonialCard';
 
@@ -32,7 +31,7 @@ function App() {
               <div className="lg:col-span-2 bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-3xl p-8 flex flex-col justify-between">
                 <div>
                   <img
-                    src={logo}
+                    src="https://static.vecteezy.com/system/resources/thumbnails/034/407/005/small_2x/african-american-female-winking-expression-black-and-white-2d-avatar-illustration-sparkle-smiling-black-girl-outline-cartoon-character-face-isolated-confident-friendly-flat-user-profile-image-vector.jpg"
                     alt="Profile"
                     className="w-20 h-20 rounded-full mb-6"
                   />
